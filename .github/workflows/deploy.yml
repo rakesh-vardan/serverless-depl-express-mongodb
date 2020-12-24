@@ -11,13 +11,17 @@ jobs:
         node-version: [12.x]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: Setup Nodejs
-        uses: actions/setup-node@v1.4.2
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies, Build application and Zip dist folder contents
-        run: npm install && npm run build && zip -qq -r -j ./app.zip ./dist/*
+      - name: npm install
+        run: npm ci --production
+      - name: zip
+        uses: montudor/action-zip@v0.1.1
+        with:
+          args: zip -qq -r ./app.zip ./
       - name: push to lambda
         uses: appleboy/lambda-action@master
         with:
