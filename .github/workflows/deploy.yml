@@ -19,7 +19,7 @@ jobs:
       - name: npm install
         run: npm ci --production
       - name: zip
-        uses: montudor/action-zip@v0.1.1
+        uses: montudor/action-zip@v1.0.0
         with:
           args: zip -qq -r ./app.zip ./
       - name: push to lambda
